@@ -82,7 +82,32 @@ Once running, access:
 - **Backend API:** `http://localhost:8034/api`
 - **Database (pgvector):** `postgres://postgres:4252@localhost:5433/postgres`
 
----
+### 4️⃣ Important: Enable Vector Extension
+
+After starting the containers, execute the following commands to enable the `vector` extension in PostgreSQL:
+
+1. Open a terminal and run:
+
+   ```sh
+   docker exec -it rag_postgres psql -U postgres -d postgres
+   ```
+
+2. Inside the PostgreSQL shell, execute:
+
+   ```sql
+   CREATE EXTENSION IF NOT EXISTS vector;
+   ```
+3. Check if the extension is enabled:
+
+   ```sql
+   SELECT * FROM pg_available_extensions WHERE name = 'vector';
+   ```
+   4. Exit the PostgreSQL shell:
+
+   ```sql
+   \q
+   ```  
+This step is crucial for enabling vector search capabilities in the database.
 
 ---
 
@@ -91,13 +116,13 @@ Once running, access:
 ### ✅ **Upload Document**
 
 ```sh
-curl -X POST http://127.0.0.1:8034/api/documents/upload/      -F "file=@yourfile.pdf"
+curl -X POST http://127.0.0.1:8034/api/documents/upload/ -F "file=@yourfile.pdf"
 ```
 
 ### ✅ **Query Optimization Testing (Minimum Latency)**
 
 ```sh
-curl -X POST http://127.0.0.1:8034/api/documents/query/      -H "Content-Type: application/json"      -d '{"query": "What is deep learning?"}'
+curl -X POST http://127.0.0.1:8034/api/documents/query/ -H "Content-Type: application/json" -d '{"query": "What is deep learning?"}'
 ```
 
 ---
@@ -112,4 +137,3 @@ curl -X POST http://127.0.0.1:8034/api/documents/query/      -H "Content-Type: a
 - Ensure **OpenAI API key** is valid and added to `.env` file.
 
 ---
-
