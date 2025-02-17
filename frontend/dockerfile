@@ -1,0 +1,23 @@
+# Use Node.js 18 as the base image
+FROM node:18
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install PNPM globally 
+RUN npm install -g pnpm
+
+# Copy package manager files first to optimize caching
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependencies without modifying lock file
+RUN rm -rf node_modules && pnpm install --frozen-lockfile
+
+# Copy the rest of the project files
+COPY . .
+
+# Expose the port used by Next.js
+EXPOSE 3058
+
+# Start the Next.js development server
+CMD ["pnpm", "dev"]

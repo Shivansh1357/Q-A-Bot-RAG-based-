@@ -1,0 +1,17 @@
+# Ignore Node.js dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Ignore Python dependencies and compiled files
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# Ignore database files and Docker volumes
+postgres_data/
+db.sqlite3
+
+# Ignore log files
+*.log

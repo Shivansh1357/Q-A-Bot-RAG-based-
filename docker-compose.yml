@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db:
+    image: ankane/pgvector
+    container_name: rag_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 4252
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./rag_chatbot_backend/backend
+    container_name: rag_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL:  "postgres://postgres:4252@db:5432/postgres"
+    ports:
+      - "8034:8034"
+    volumes:
+      - ./rag_chatbot_backend/backend:/app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8034"
+
+  frontend:
+    build: ./frontend
+    container_name: rag_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3058:3058"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: pnpm dev
+
+volumes:
+  postgres_data:
