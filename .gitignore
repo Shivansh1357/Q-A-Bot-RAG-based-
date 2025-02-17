@@ -1,6 +1,5 @@
 # Ignore Node.js dependencies
 node_modules/
-pnpm-lock.yaml
 
 # Ignore Python dependencies and compiled files
 __pycache__/
