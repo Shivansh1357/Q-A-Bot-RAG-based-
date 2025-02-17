@@ -13,9 +13,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    command: >
-      sh -c "psql -U postgres -d postgres -c 'CREATE EXTENSION IF NOT EXISTS vector;' && tail -f /dev/null"
-
+ 
   backend:
     build: ./rag_chatbot_backend/backend
     container_name: rag_backend
