@@ -76,40 +76,28 @@ This will:
 2. Start the **Django backend** (`rag_backend`) and run migrations automatically.
 3. Start the **Next.js frontend** (`rag_frontend`).
 
+Once running,
+
+### 4️⃣ Important: Enable Vector Extension
+
+After starting the containers, execute the following script to enable the `vector` extension and migrate the database:
+
+1. Run the setup script:
+
+   ```sh
+   ./setup-vector.sh
+   ```
+
+This step is crucial for enabling vector search capabilities in the database.
+
+---
+
+
 Once running, access:
 
 - **Frontend:** `http://localhost:3058`
 - **Backend API:** `http://localhost:8034/api`
 - **Database (pgvector):** `postgres://postgres:4252@localhost:5433/postgres`
-
-### 4️⃣ Important: Enable Vector Extension
-
-After starting the containers, execute the following commands to enable the `vector` extension in PostgreSQL:
-
-1. Open a terminal and run:
-
-   ```sh
-   docker exec -it rag_postgres psql -U postgres -d postgres
-   ```
-
-2. Inside the PostgreSQL shell, execute:
-
-   ```sql
-   CREATE EXTENSION IF NOT EXISTS vector;
-   ```
-3. Check if the extension is enabled:
-
-   ```sql
-   SELECT * FROM pg_available_extensions WHERE name = 'vector';
-   ```
-   4. Exit the PostgreSQL shell:
-
-   ```sql
-   \q
-   ```  
-This step is crucial for enabling vector search capabilities in the database.
-
----
 
 ## 🛠️ Testing API Endpoints
 
