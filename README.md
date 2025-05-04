@@ -1,6 +1,6 @@
 #  RAG-based Q&A Chatbot
 
-This is a **Retrieval-Augmented Generation (RAG) based AI chatbot** designed for **Neurality Health**. It allows users to upload documents, store them as vector embeddings using **pgvector**, and perform **semantic search** to answer queries efficiently.
+This is a **Retrieval-Augmented Generation (RAG) based AI chatbot** designed by **Shivansh Tripathi**. It allows users to upload documents, store them as vector embeddings using **pgvector**, and perform **semantic search** to answer queries efficiently.
 
 ---
 
